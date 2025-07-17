@@ -1,14 +1,33 @@
 package com.example.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-//@Data
-public class Individuo {
+import java.io.Serializable;
+
+@Entity
+@Data
+@Table(name = "individuo")
+public class Individuo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private String nombre;
     private String apellidos;
     private String telefono;
     private String correo;
     private int edad;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;

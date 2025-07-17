@@ -1,6 +1,8 @@
 package com.example.biblio;
 
+import com.example.dao.IndividuoDao;
 import com.example.domain.Individuo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,9 @@ import java.util.List;
 @Controller // Se usa para que las plantillas funcionen
 public class ControladorRest {
 
+
+    @Autowired
+    private IndividuoDao individuoDao;
 
     @GetMapping("/")
     public String inicio(Model model) {
@@ -72,6 +77,19 @@ public class ControladorRest {
         individuos.add(individuo1);
         individuos.add(individuo2);
         individuos.add(individuo3);
+
+
+//        individuos.clear(); Con esto podemos comprobar si la lista está vacía
+        model.addAttribute("individuos", individuos);
+
+
+        return "lista";
+    }
+
+    @GetMapping("/prueba/listabbdd")
+    public String listaBbdd(Model model) {
+
+        Iterable<Individuo> individuos = individuoDao.findAll();
 
 
 //        individuos.clear(); Con esto podemos comprobar si la lista está vacía
